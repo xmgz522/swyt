@@ -1,0 +1,33 @@
+== 各端启动命令 ==
+
+0. 首次部署：
+   复制 server/.env.example 为 server/.env，填入数据库和 JWT 配置
+
+1. 后端 (server):
+   cd server && npm run start:dev
+   → http://localhost:3000
+
+2. 管理后台 (admin):
+   cd admin && npm run dev
+   → http://localhost:5173
+
+3. 小程序 (miniapp):
+   cd miniapp && npm run dev:mp-weixin
+   → 用微信开发者工具打开 miniapp/dist/dev/mp-weixin
+   或 cd miniapp && npm run dev:h5 → http://localhost:5174
+
+4. 学生PC端 (student-web):
+   cd student-web && npm run dev
+   → http://localhost:5180
+
+== 生产部署（Docker 一键部署） ==
+
+1. 上传代码到服务器
+2. 复制 deploy/env.production.example 为根目录 .env，修改密码和密钥
+3. 执行：docker-compose up -d --build
+4. 访问：
+   - 后台管理：http://IP:8080
+   - 学生PC端：http://IP:8081
+   - 后端API：http://IP:3000
+5. 详细文档见：deploy/README.md
+6. 一键脚本：chmod +x deploy/deploy.sh && ./deploy/deploy.sh

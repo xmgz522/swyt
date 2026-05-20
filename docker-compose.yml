@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # ========== MySQL 数据库 ==========
+  mysql:
+    image: mysql:8.0
+    container_name: zj-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-zj_secure_password_2024}
+      MYSQL_DATABASE: ${DB_DATABASE:-zj_early_admission}
+      MYSQL_CHARSET: utf8mb4
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ========== NestJS 后端 ==========
+  server:
+    build: ./server
+    container_name: zj-server
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD:-zj_secure_password_2024}
+      DB_DATABASE: ${DB_DATABASE:-zj_early_admission}
+      JWT_SECRET: ${JWT_SECRET:-zj-early-admission-jwt-secret-key-2024}
+      JWT_EXPIRES_IN: 7d
+      NODE_ENV: production
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  # ========== 后台管理前端 ==========
+  admin:
+    build: ./admin
+    container_name: zj-admin
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - server
+
+  # ========== 学生PC端前端 ==========
+  student-web:
+    build: ./student-web
+    container_name: zj-student-web
+    restart: always
+    ports:
+      - "8081:80"
+    depends_on:
+      - server
+
+volumes:
+  mysql_data:

@@ -1,0 +1,26 @@
+{
+  "name": "浙江三位一体测评",
+  "appid": "",
+  "description": "浙江三位一体测评系统 - 学生端",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false
+    },
+    "usingComponents": true,
+    "lazyCodeLoading": "requiredComponents"
+  },
+  "h5": {
+    "devServer": {
+      "port": 5174,
+      "proxy": {
+        "/api": {
+          "target": "http://localhost:3000",
+          "changeOrigin": true
+        }
+      }
+    }
+  }
+}
