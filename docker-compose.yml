@@ -53,7 +53,9 @@ services:
 
   # ========== 学生PC端前端 ==========
   student-web:
-    build: ./student-web
+    build:
+      context: .
+      dockerfile: student-web/Dockerfile
     container_name: zj-student-web
     restart: always
     ports:
