@@ -33,7 +33,7 @@ import { InviteCodeModule } from './modules/invite-code/invite-code.module';
         password: config.get<string>('DB_PASSWORD', 'root'),
         database: config.get<string>('DB_DATABASE', 'zj_early_admission'),
         autoLoadEntities: true,
-        synchronize: config.get<string>('NODE_ENV') !== 'production',
+        synchronize: true,
         charset: 'utf8mb4',
       }),
     }),
