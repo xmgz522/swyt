@@ -11,6 +11,7 @@ FROM node:18-alpine
 WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./
-RUN npm ci --only=production --registry=https://registry.npmmirror.com
+COPY --from=builder /app/package-lock.json ./
+RUN npm ci --omit=dev --registry=https://registry.npmmirror.com
 EXPOSE 3000
 CMD ["node", "dist/main.js"]
