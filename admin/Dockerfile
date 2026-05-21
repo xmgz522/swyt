@@ -3,6 +3,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --registry=https://registry.npmmirror.com
 COPY . .
+ARG VITE_BASE=/admin/
+ENV VITE_BASE=${VITE_BASE}
 RUN npm run build
 
 FROM nginx:alpine
