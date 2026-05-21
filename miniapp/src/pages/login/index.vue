@@ -24,7 +24,7 @@
       </view>
       <view class="form-item">
         <text class="label">密码</text>
-        <input v-model="loginPassword" type="safe-password" placeholder="请输入密码" class="input" placeholder-class="ph" />
+        <input v-model="loginPassword" type="text" password placeholder="请输入密码" class="input" placeholder-class="ph" />
       </view>
       <button class="primary-btn" @tap="handleLogin" :loading="loading">登 录</button>
       <view style="display: flex; justify-content: space-between; margin-top: 16rpx;">
@@ -54,7 +54,7 @@
       </view>
       <view class="form-item">
         <text class="label">设置密码</text>
-        <input v-model="regForm.password" type="safe-password" placeholder="至少6位" class="input" placeholder-class="ph" />
+        <input v-model="regForm.password" type="text" password placeholder="至少6位" class="input" placeholder-class="ph" />
       </view>
       <view class="form-item">
         <text class="label">注册码</text>

@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://zj-early-admission.mol.ink',
         changeOrigin: true,
       },
     },

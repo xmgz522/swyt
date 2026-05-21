@@ -1,7 +1,7 @@
 <template>
   <view class="page">
     <!-- 顶部区域 -->
-    <view class="header">
+    <view class="header" :style="{ paddingTop: (statusBarHeight + 44) + 'px' }">
       <view class="header-top">
         <view class="header-left">
           <view class="avatar">
@@ -168,6 +168,12 @@
 import { ref, computed, onMounted } from 'vue'
 import { get, put } from '../../utils/api'
 import { onShow, onPullDownRefresh } from '@dcloudio/uni-app'
+
+const statusBarHeight = ref(20)
+try {
+  const sysInfo = uni.getSystemInfoSync()
+  statusBarHeight.value = sysInfo.statusBarHeight || 20
+} catch {}
 
 const profile = ref<any>({})
 const hasProfile = ref(false)
@@ -420,7 +426,7 @@ async function toggleTask(task: any) {
 
 /* 顶部 */
 .header { background: #2e4a78; padding: 0 0 28rpx; border-radius: 0 0 28rpx 28rpx; }
-.header-top { display: flex; align-items: center; justify-content: space-between; padding: 54rpx 28rpx 24rpx; }
+.header-top { display: flex; align-items: center; justify-content: space-between; padding: 24rpx 28rpx; }
 .header-left { display: flex; align-items: center; gap: 20rpx; }
 .header-right { display: flex; align-items: center; gap: 16rpx; }
 .icon-btn { position: relative; width: 64rpx; height: 64rpx; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; }

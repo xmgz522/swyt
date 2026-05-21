@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000/api'
+const BASE_URL = 'https://zj-early-admission.mol.ink/api'
 
 export function request(url: string, options: any = {}) {
   return new Promise<any>((resolve, reject) => {

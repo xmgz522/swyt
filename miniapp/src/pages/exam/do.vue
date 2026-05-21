@@ -6,7 +6,7 @@
 
     <view v-else>
       <!-- 顶部固定栏：进度+计时 -->
-      <view class="sticky-bar">
+      <view class="sticky-bar" :style="{ paddingTop: statusBarHeight + 'px' }">
         <view class="bar-left">
           <text class="pause-btn" @tap="pauseExam">暂停保存</text>
           <text class="bar-progress">{{ answeredCount }}/{{ paper.questions.length }}</text>
@@ -149,6 +149,12 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onUnmounted, watch } from 'vue'
 import { get, post } from '../../utils/api'
+
+const statusBarHeight = ref(20)
+try {
+  const sysInfo = uni.getSystemInfoSync()
+  statusBarHeight.value = (sysInfo.statusBarHeight || 20) + 44
+} catch {}
 
 const typeMap: any = { single_choice: '单选', multi_choice: '多选', judge: '判断', fill: '填空', short_answer: '简答' }
 const paper = ref<any>(null)
@@ -335,7 +341,7 @@ async function handleSubmit() {
 .loading-state { display: flex; align-items: center; justify-content: center; height: 60vh; }
 .loading-text { font-size: 28rpx; color: #999; }
 
-.sticky-bar { position: sticky; top: 0; z-index: 10; background: #fff; padding: 16rpx 24rpx; padding-top: calc(env(safe-area-inset-top) + 16rpx); display: flex; align-items: center; justify-content: space-between; border-bottom: 1rpx solid #f0f0f0; }
+.sticky-bar { position: sticky; top: 0; z-index: 10; background: #fff; padding: 16rpx 24rpx; display: flex; align-items: center; justify-content: space-between; border-bottom: 1rpx solid #f0f0f0; }
 .bar-left { display: flex; align-items: center; gap: 12rpx; flex: 1; }
 .pause-btn { font-size: 24rpx; color: #fff; background: #2e4a78; padding: 10rpx 20rpx; border-radius: 8rpx; white-space: nowrap; }
 .bar-progress { font-size: 26rpx; font-weight: 600; color: #2e4a78; white-space: nowrap; }
